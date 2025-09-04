@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Teacher's Day</title>
+  <style>
+    body{
+      margin:0; height:100vh; overflow:hidden;
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+      background: linear-gradient(120deg,#ffd1e3,#a8e0ff,#fff4b2);
+      background-size: 300% 300%;
+      animation: bgshift 12s ease-in-out infinite;
+      font-family: "Poppins", "Comic Sans MS", system-ui, sans-serif;
+    }
+    @keyframes bgshift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    h1{
+      margin:0 12px 8px;
+      color:#222;
+      font-size: clamp(24px,6vw,40px);
+      text-align:center;
+    }
+    #lines{ display:flex; flex-direction:column; align-items:center; gap:10px; }
+    .card{
+      max-width: 92vw;
+      background: rgba(255,255,255,.9);
+      border-radius: 18px;
+      padding: 14px 18px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.15);
+      font-size: clamp(18px,4.6vw,26px);
+      color:#444;
+      font-weight:600;
+      text-align:center;
+      line-height:1.35;
+      transform: scale(.85) translateY(10px);
+      opacity:0;
+      animation: popin .9s forwards ease;
+    }
+    .card .name{
+      display:inline-block;
+      padding:2px 10px;
+      border-radius:999px;
+      background:#ffe1ef;
+      color:#c2185b;
+      margin-bottom:6px;
+      font-weight:800;
+    }
+    @keyframes popin{
+      to{ transform: scale(1) translateY(0); opacity:1;}
+    }
+    .float{
+      position:absolute; bottom:-10vh;
+      font-size: 28px;
+      animation: rise linear forwards;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,.2));
+      user-select:none; pointer-events:none;
+    }
+    @keyframes rise{
+      0%{ transform: translateY(0) rotate(0deg); opacity:1;}
+      100%{ transform: translateY(-115vh) rotate(360deg); opacity:0;}
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Happy Teacher's Day 🎉</h1>
+  <div id="lines"></div>
+
+  <script>
+    const messages = [
+      {
+        name: "For Avinash Sir",
+        text: "To the coolest teacher in the college ✨ You make learning so much fun! Happy Teachers Day, Sir 🎉❤️"
+      },
+      {
+        name: "For Amit Sir",
+        text: "You don't just teach — you light up minds and hearts 💡💖 Wishing you a wonderful Teachers Day, Sir 💐"
+      },
+      {
+        name: "For Abhishek Sir",
+        text: "You make every lesson come alive 📚 Thank you for being a teacher who truly inspires 🌟"
+      }
+    ];
+    const container = document.getElementById("lines");
+    let i = 0;
+    function showNext(){
+      if(i >= messages.length) return;
+      const {name, text} = messages[i++];
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `<div class="name">${name}</div>${text}`;
+      container.appendChild(card);
+      setTimeout(showNext, 3500);
+    }
+    showNext();
+
+    const floaters = ["❤️","💖","💕","💓","🎈","🎉","✨","🌟","💐","🥰","📚","🧠"];
+    function spawnFloat(){
+      const el = document.createElement("div");
+      el.className = "float";
+      el.textContent = floaters[Math.floor(Math.random()*floaters.length)];
+      const size = 22 + Math.random()*22;
+      el.style.fontSize = size + "px";
+      el.style.left = Math.random()*100 + "vw";
+      const dur = 6 + Math.random()*5;
+      el.style.animationDuration = dur + "s";
+      document.body.appendChild(el);
+      setTimeout(()=>el.remove(), dur*1000);
+    }
+    setInterval(spawnFloat, 350);
+  </script>
+</body>
+</html>
